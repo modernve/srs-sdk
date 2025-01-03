@@ -4,6 +4,7 @@ public class DefaultSRSHookHandler implements SRSHookHandler {
     
     @Override
     public boolean onPublish(SRSHookData data) {
+        System.out.println(data);
         return true;
     }
 
