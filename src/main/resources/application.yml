@@ -1,0 +1,7 @@
+
+srs:
+  hook:
+    on_publish: /on-publish
+    on_unpublish: /on-unpublish
+    on_play: /on-play
+    on_stop: /on-stop
