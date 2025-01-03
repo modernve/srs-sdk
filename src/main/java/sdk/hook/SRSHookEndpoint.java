@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/hooks")
+@RequestMapping("/sdk/srs/hook")
 public class SRSHookEndpoint {
 
     private final SRSHookHandler srsHookHandler;
@@ -19,7 +19,7 @@ public class SRSHookEndpoint {
         this.srsHookHandler = srsHookHandler;
     }
 
-    @PostMapping(value = "${srs.hook.on_publish}")
+    @PostMapping("/on_publish")
     public ResponseEntity<Map<String, Integer>> publish(@RequestBody SRSHookData data) {
         boolean b = srsHookHandler.onPublish(data);
         Map<String, Integer> map = new HashMap<>();
@@ -27,13 +27,13 @@ public class SRSHookEndpoint {
         return ResponseEntity.ok(map);
     }
 
-    @PostMapping(value = "${srs.hook.on_unpublish}")
+    @PostMapping("/on_unpublish")
     public ResponseEntity<Object> unpublish(@RequestBody SRSHookData data) {
         srsHookHandler.onUnpublish(data);
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping(value = "${srs.hook.on_play}")
+    @PostMapping("/on_play")
     public ResponseEntity<Map<String, Integer>> play(@RequestBody SRSHookData data) {
         boolean b = srsHookHandler.onPlay(data);
         Map<String, Integer> map = new HashMap<>();
@@ -41,7 +41,7 @@ public class SRSHookEndpoint {
         return ResponseEntity.ok(map);
     }
 
-    @PostMapping(value = "${srs.hook.on_stop}")
+    @PostMapping("/on_stop")
     public ResponseEntity<Object> stop(@RequestBody SRSHookData object) {
         srsHookHandler.onStop(object);
         return ResponseEntity.ok().build();

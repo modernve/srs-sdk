@@ -10,16 +10,16 @@
     </parent>
     <groupId>com.modernve.sdk</groupId>
     <artifactId>srs-sdk</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <name>srs-sdk</name>
     <description>srs-sdk</description>
-    <url/>
-    <licenses>
-        <license>
-        </license>
-    </licenses>
+    <url>https://github.com/modernve/srs-sdk.git</url>
     <developers>
-        <developer/>
+        <developer>
+            <id>modernve</id>
+            <name>modernve</name>
+            <email>modernve@163.com</email>
+        </developer>
     </developers>
     <scm>
         <connection/>
@@ -31,6 +31,10 @@
         <java.version>23</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
@@ -52,8 +56,32 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                    <compilerArgs>--enable-preview</compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>exec</classifier>
+                    <excludeDevtools>false</excludeDevtools>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
