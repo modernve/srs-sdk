@@ -21,6 +21,7 @@ public class SRSHookEndpoint {
 
     @PostMapping("/on_publish")
     public ResponseEntity<Map<String, Integer>> publish(@RequestBody SRSHookData data) {
+        System.out.println(data.toString());
         boolean b = srsHookHandler.onPublish(data);
         Map<String, Integer> map = new HashMap<>();
         map.put("code", b ? 0 : 1);
