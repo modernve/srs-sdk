@@ -25,7 +25,13 @@ public class SRSApiUtil {
     }
 
     private static SDPResponse sendRequest(SDPRequest sdpRequest, String path) throws URISyntaxException, IOException {
-        URI uri = new URI(baseUrl + path);
+        if (baseUrl == null) {
+            throw new IllegalStateException("SRSApiUtil has not been initialized. Please ensure SRSConfig is properly configured.");
+        }
+
+        // 确保 baseUrl 末尾没有 '/' 且 path 以 '/' 开头
+        String fullUrl = baseUrl + (path.startsWith("/") ? path : "/" + path);
+        URI uri = new URI(fullUrl);
         URL url = uri.toURL();
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         
