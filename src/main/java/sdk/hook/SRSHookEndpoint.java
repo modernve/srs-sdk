@@ -5,7 +5,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sdk.api.SDPRequest;
+import sdk.api.SDPResponse;
+import sdk.api.SRSApiUtil;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,5 +51,15 @@ public class SRSHookEndpoint {
     public ResponseEntity<Object> stop(@RequestBody SRSHookData object) {
         srsHookHandler.onStop(object);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/publish")
+    public SDPResponse publish(@RequestBody SDPRequest sdpRequest) throws URISyntaxException, IOException {
+        return SRSApiUtil.rtcPublish(sdpRequest);
+    }
+
+    @PostMapping("/play")
+    public SDPResponse play(@RequestBody SDPRequest sdpRequest) throws URISyntaxException, IOException {
+        return SRSApiUtil.rtcPlay(sdpRequest);
     }
 }
